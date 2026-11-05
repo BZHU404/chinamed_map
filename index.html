@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="草药谱：按功效与症状反查药材的静态本草索引，为写手、画手与考据党准备。创作参考，非处方。">
+  <meta name="theme-color" content="#F7F2E9">
+  <meta name="author" content="Simon Workshop™">
+  <meta property="og:title" content="草药谱 · 按功效反查的本草抽屉">
+  <meta property="og:description" content="为写手、画手与考据党准备的本草索引：按功效反查、药对、药材示意与A5药方签。创作参考，非处方。">
+  <meta property="og:type" content="website">
+  <title>草药谱 · 按功效反查的本草抽屉</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23F7F2E9'/%3E%3Crect x='6' y='6' width='52' height='52' fill='none' stroke='%23A0432B' stroke-width='2'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='serif' font-size='36' fill='%23A0432B'%3E%E8%8D%89%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#index">跳到药材索引</a>
+
+  <div class="app" id="app">
+    <header class="site-header">
+      <a class="brand" href="./" aria-label="草药谱首页">
+        <span class="brand-seal" aria-hidden="true">草</span>
+        <span class="brand-text">
+          <strong>草药谱</strong>
+          <small>MATERIA MEDICA</small>
+        </span>
+      </a>
+
+      <nav class="site-nav" aria-label="主导航">
+        <a href="#index">药材索引 <span class="nav-count" id="navCount">120</span></a>
+        <a href="#pairs">药对笺</a>
+        <a href="#guide">读法</a>
+      </nav>
+
+      <div class="header-tools">
+        <span class="header-note">创作参考 · 非处方</span>
+        <button class="btn btn-random" id="randomBtn" type="button">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 4.5h2.2c2.3 0 3.1 7 5.5 7H14M11.5 9l2.5 2.5-2.5 2.5M2 11.5h2.2c.9 0 1.5-1.1 2.1-2.4M11.5 2l2.5 2.5L11.5 7" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>随机一味</span>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="heroTitle">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="eyebrow-line" aria-hidden="true"></span>卷之一 · 本草叙事工具</p>
+          <h1 id="heroTitle"><span class="hero-pronoun">Ta</span>病了，<br><em>该拉哪一格<br><span>抽屉？</span></em></h1>
+          <p class="hero-lede">一味药不是一张标签，而是一组关系：性味、归经、禁忌，以及它愿意和谁站在一起。这本谱不限于草木：动物、矿物、化石与历史材料也在其中。</p>
+
+          <div class="hero-stats" aria-label="数据概览">
+            <div class="stat"><strong id="statHerbs">120</strong><span>味本草</span></div>
+            <div class="stat"><strong>15</strong><span>类功效</span></div>
+            <div class="stat"><strong id="statPairs">48</strong><span>组药对</span></div>
+          </div>
+
+          <p class="hero-quote"><span>按功效反查</span> · 选中证候，药柜会替你筛出药材、部位、性味与禁忌。</p>
+        </div>
+
+        <aside class="reverse-panel" aria-labelledby="reverseTitle">
+          <header class="panel-head">
+            <div>
+              <p class="section-kicker">证候索引 / SYMPTOM DRAWER</p>
+              <h2 id="reverseTitle">角色哪里不舒服？</h2>
+            </div>
+            <span class="panel-hint" aria-hidden="true">选一格<br>拉开抽屉</span>
+          </header>
+
+          <div class="drawer-grid" id="reverseGrid" role="group" aria-label="按功效或症状反查"></div>
+
+          <footer class="panel-foot">
+            <p id="reverseSummary" aria-live="polite">先选一种功效或症状，再往下看药材。</p>
+            <button class="text-link" id="clearReverse" type="button" hidden>清除反查 ×</button>
+          </footer>
+        </aside>
+      </section>
+
+      <section class="index-tools" id="index" aria-labelledby="indexTitle">
+        <div class="tools-heading">
+          <p class="section-kicker">检索台 / SEARCH &amp; FILTER</p>
+          <h2 class="visually-hidden" id="indexTitle">药材索引与筛选</h2>
+        </div>
+
+        <div class="search-shell" id="searchShell">
+          <span class="search-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="m15.5 15.5 5 5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          </span>
+          <label class="visually-hidden" for="searchInput">搜索药材</label>
+          <input id="searchInput" type="search" placeholder="搜中文名、英文名、学名或别名" autocomplete="off" spellcheck="false">
+          <button class="search-clear" id="searchClear" type="button" aria-label="清空搜索" hidden>×</button>
+          <kbd aria-hidden="true">/</kbd>
+        </div>
+
+        <div class="filter-heading">
+          <p><span class="mini-rule" aria-hidden="true"></span>筛选 / FILTER</p>
+          <button class="text-link" id="resetFilters" type="button" hidden>全部重置 ×</button>
+        </div>
+
+        <div class="filter-bar" id="filterBar" aria-label="药材筛选"></div>
+        <div class="active-filters" id="activeFilters" aria-live="polite"></div>
+      </section>
+
+      <section class="results" aria-labelledby="resultsTitle">
+        <header class="section-head">
+          <div class="section-title-group">
+            <p class="section-kicker">药材抽屉 / MATERIA MEDICA</p>
+            <h2 id="resultsTitle">索引</h2>
+          </div>
+          <p class="result-meta" id="resultMeta" aria-live="polite">共 120 味 · 第 1 / 8 页</p>
+        </header>
+
+        <div class="reverse-banner" id="reverseBanner" hidden></div>
+
+        <div class="herb-grid" id="herbGrid"></div>
+
+        <div class="empty-state" id="emptyState" hidden>
+          <p class="empty-mark" aria-hidden="true">空</p>
+          <h3>这一格抽屉是空的</h3>
+          <p>换个功效，或放宽一两个筛选条件。也可以直接搜学名与别名。</p>
+          <button class="btn" id="emptyReset" type="button">清空条件，重新找药</button>
+        </div>
+
+        <nav class="pagination" id="pagination" aria-label="分页"></nav>
+
+        <p class="index-disclaimer">本谱仅用于小说、绘画与考据创作，不构成医疗建议；不要据此用药。毒性药材已醒目标注，切勿自行使用。</p>
+      </section>
+
+      <section class="pairs-section" id="pairs" aria-labelledby="pairsTitle">
+        <div class="pairs-inner">
+          <header class="pairs-head">
+            <div>
+              <p class="section-kicker">药对笺 / HERB PAIRS</p>
+              <h2 id="pairsTitle">两味药，<br>为什么站在一起？</h2>
+            </div>
+            <p class="pairs-lede">药对不是把两味好药放在一起，而是让它们互相补位。点开任一药名，继续拉下一格抽屉。</p>
+          </header>
+          <div class="pairs-list" id="pairsList"></div>
+        </div>
+      </section>
+
+      <section class="guide" id="guide" aria-labelledby="guideTitle">
+        <header class="section-head guide-head">
+          <div class="section-title-group">
+            <p class="section-kicker">读法 / FIELD NOTES</p>
+            <h2 id="guideTitle">这本药谱怎么用</h2>
+          </div>
+          <p class="guide-note">写给三种人：要写病、要画药、要考据的人。</p>
+        </header>
+
+        <div class="guide-grid">
+          <article class="guide-item">
+            <p class="guide-index">01 / 写手</p>
+            <h3>先写症状，再写药</h3>
+            <p>用上方的证候索引反查。别让角色直接报药名，先问Ta怕冷还是怕热、有没有汗、痰是清是稠。药性是关系的入口。</p>
+          </article>
+          <article class="guide-item">
+            <p class="guide-index">02 / 画手</p>
+            <h3>药材不等于植物图</h3>
+            <p>详情里的 SVG 是「饮片／药材」示意，不是照片，也不是植物科学画。留意切片、卷曲果皮、根茎结节与花冠的轮廓。</p>
+          </article>
+          <article class="guide-item">
+            <p class="guide-index">03 / 考据党</p>
+            <h3>把「待核」当成线索</h3>
+            <p>学名、科属、性味归经与保护级别尽量给出处；不确定处直接标注「资料待核」。这不是偷懒，是给下一步考据留门。</p>
+          </article>
+        </div>
+
+        <aside class="safety-note" aria-label="安全声明">
+          <span class="safety-mark" aria-hidden="true">!</span>
+          <div>
+            <h3>先读这一条：创作参考，不是处方</h3>
+            <p>本站不写剂量、不写方剂配比、不写可服用的炮制步骤，也不提供自采自用方法。毒性药材（如附子、半夏、何首乌）必须显著标注「有毒 / 需炮制 / 切勿自行使用」。</p>
+            <p>孕妇禁忌与十八反、十九畏只作提示，不展开用法。所有性味、归经与禁忌均不能替代执业医师的辨证。<strong>不要根据本站内容用药。</strong></p>
+          </div>
+        </aside>
+
+        <p class="review-note">校勘说明：标有「资料待核」的字段，表示本站暂未完成可靠来源核对，或不同文献存在分歧。它们适合作为创作线索，不适合作为临床依据。</p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <p class="footer-kicker">MATERIA MEDICA · FOR STORYTELLERS</p>
+          <p class="footer-wordmark">草药谱</p>
+          <p class="footer-line">一柜一格，一格一性。<br>写给角色，也写给草木。</p>
+        </div>
+        <div class="footer-disclaimer">
+          <p class="footer-caution">创作参考，非处方。</p>
+          <p>本站仅用于小说、绘画与考据创作，不构成医疗建议；不要据此用药。毒性药材与孕妇禁忌均有醒目标注，任何实际用药请咨询执业医师。</p>
+          <p class="footer-sig">© 2026 草药谱 · <span>Simon Workshop™</span></p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <div class="drawer-root" id="drawerRoot" hidden>
+    <div class="drawer-scrim" data-close-drawer aria-hidden="true"></div>
+    <aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle" tabindex="-1">
+      <header class="drawer-bar">
+        <p class="drawer-index" id="drawerIndex">药材抽屉</p>
+        <div class="drawer-tools">
+          <button class="btn btn-print" id="printBtn" type="button">
+            <svg viewBox="0 0 18 18" aria-hidden="true"><path d="M5 6V2.5h8V6M4 13H2.5V7.5h13V13H14M5 10h8v5.5H5z" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
+            <span>A5药方签</span>
+          </button>
+          <button class="icon-btn" id="closeDrawer" type="button" aria-label="关闭详情">
+            <svg viewBox="0 0 18 18" aria-hidden="true"><path d="m3 3 12 12M15 3 3 15" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+      </header>
+      <div class="drawer-content" id="drawerContent"></div>
+    </aside>
+  </div>
+
+  <div class="print-sheet" id="printSheet" aria-hidden="true"></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <noscript>
+    <div class="noscript">草药谱依赖 JavaScript 来筛选与打开药材抽屉。请在浏览器中启用 JavaScript。</div>
+  </noscript>
+
+  <script src="data/herbs.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
