@@ -1710,7 +1710,7 @@
       "本页仅用于小说、绘画与考据创作，不构成医疗建议；不要据此用药。性味、归经、禁忌与保护级别中标注「资料待核」者，表示暂未完成可靠来源核对。",
       '<button class="text-link print-link" type="button" data-print-herb>打印A5药方签 ↗</button>',
       "</div>",
-      '<p class="detail-footer-note">草药谱 · HERBAL INDEX · SIMON WORKSHOP™</p>'
+      '<p class="detail-footer-note">草药谱 · MATERIA MEDICA · SIMON WORKSHOP™</p>'
     ].join("");
 
     return content;
@@ -1830,8 +1830,8 @@
       '<article class="print-card">',
       '<header class="print-head">',
       '<div class="print-brand">',
-      '<span class="print-seal">草</span>',
-      '<div><p class="print-brand-name">草药谱</p><p class="print-brand-sub">HERBAL INDEX</p></div>',
+      '<span class="print-seal">药</span>',
+      '<div><p class="print-brand-name">草药谱</p><p class="print-brand-sub">MATERIA MEDICA</p></div>',
       "</div>",
       '<p class="print-kicker">药方签 / HERB CARD<strong>创作参考，非处方</strong></p>',
       "</header>",
@@ -1879,7 +1879,7 @@
       '<div class="print-disclaimer">',
       "<strong>创作参考，非处方。</strong>仅用于创作参考，不构成医疗建议；不要据此用药。本站不提供剂量、方剂配比与可服用炮制步骤。",
       "</div>",
-      '<div class="print-foot"><span>草药谱 · HERBAL INDEX</span><span>© 2026 Simon Workshop™</span></div>',
+      '<div class="print-foot"><span>草药谱 · MATERIA MEDICA</span><span>© 2026 Simon Workshop™</span></div>',
       "</article>"
     ].join("");
   }
